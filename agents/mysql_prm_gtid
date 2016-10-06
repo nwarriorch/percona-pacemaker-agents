@@ -1682,6 +1682,10 @@ mysql_stop() {
       ocf_log info "MySQL is not running"
       return $OCF_SUCCESS
    fi
+   if [ ! -e $OCF_RESKEY_pid ]; then
+      ocf_log $1 "MySQL is not running"
+      return $OCF_SUCCESS
+   fi
    
    pid=`cat ${OCF_RESKEY_pid}.starting 2> /dev/null`
    /bin/kill $pid > /dev/null
